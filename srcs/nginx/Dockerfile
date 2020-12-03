@@ -10,9 +10,9 @@ RUN openssl req -x509 -nodes -days 30 -newkey rsa:2048 -subj \
     /etc/ssl/private/arannara.key -out /etc/ssl/certs/arannara.crt
 
 # Ssh
-#RUN ssh-keygen -A
-#RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-#RUN	adduser -D arannara && echo "arannara:qwerty" | chpasswd && echo "root:qwerty" | chpasswd
+RUN ssh-keygen -A
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+RUN	adduser -D arannara && echo "arannara:qwerty" | chpasswd && echo "root:qwerty" | chpasswd
 
 # Nginx
 COPY ./srcs/nginx.conf /etc/nginx/conf.d/default.conf
