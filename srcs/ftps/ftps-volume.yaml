@@ -11,7 +11,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: "/mnt/ftps"
+    path: "/mnt/data/ftps"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
