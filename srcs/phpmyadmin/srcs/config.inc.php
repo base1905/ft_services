@@ -37,6 +37,9 @@ $cfg['Servers'][$i]['user'] = 'arannara';
 $cfg['Servers'][$i]['password'] = 'qwerty';
 $cfg['Servers'][$i]['compress'] = false;
 
+$cfg['TempDir'] = '/var/tmp/phpmyadmin';
+
+
 /**
  * phpMyAdmin configuration storage settings.
  */

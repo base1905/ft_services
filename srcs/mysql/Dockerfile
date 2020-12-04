@@ -1,12 +1,15 @@
-FROM alpine:latest
+FROM	alpine:latest
 
-RUN apk update && apk upgrade
-RUN apk add openrc mysql mysql-client
+RUN 	apk update && \
+		apk add openrc 
 
-RUN mkdir /run/mysqld && chown -R mysql /run/mysqld
+RUN		apk add mysql mysql-client && \
+		mkdir "/run/mysqld" && \
+		chown -R mysql /run/mysqld
 
-COPY	./srcs/createdb.sql ./
-COPY	./srcs/start.sh ./
+COPY	./srcs/createdb.sql \
+		# ./srcs/arannara.sql \
+		./srcs/start.sh ./
 
 COPY	./srcs/my.cnf /etc/my.cnf
 

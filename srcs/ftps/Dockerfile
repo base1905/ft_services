@@ -1,4 +1,4 @@
-FROM	alpine
+FROM	alpine:latest
 
 RUN 	apk update && \
         apk add openrc 
@@ -20,6 +20,8 @@ RUN     mkdir -p /var/ftp
 COPY    /srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 COPY    /srcs/start.sh .
+
+RUN     chmod 757 -R /var/lib/ftp
 
 VOLUME  /var/lib/ftp
 

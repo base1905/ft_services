@@ -23,6 +23,8 @@ kubectl apply -f ./srcs/ftps/
 docker build -t phpmyadmin ./srcs/phpmyadmin/
 kubectl apply -f ./srcs/phpmyadmin/
 
-
+#WORDPRESS
+docker build -t wordpress ./srcs/wordpress/
+kubectl apply -f ./srcs/wordpress/
 
 
