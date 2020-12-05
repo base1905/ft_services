@@ -3,8 +3,6 @@ FROM	alpine:latest
 RUN 	apk update && \
         apk add openrc 
 
-WORKDIR /srcs
-
 RUN	apk add vsftpd && \
         apk add openssl
 
@@ -19,14 +17,10 @@ RUN     mkdir -p /var/ftp
 
 COPY    /srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-COPY    /srcs/start.sh .
-
 RUN     chmod 757 -R /var/lib/ftp
 
 VOLUME  /var/lib/ftp
 
-RUN     chmod 711 start.sh
-
 EXPOSE  21 20021
 
-CMD     [ "sh", "start.sh" ]
+ENTRYPOINT vsftpd /etc/vsftpd/vsftpd.conf

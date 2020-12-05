@@ -27,4 +27,14 @@ kubectl apply -f ./srcs/phpmyadmin/
 docker build -t wordpress ./srcs/wordpress/
 kubectl apply -f ./srcs/wordpress/
 
+#INFLUXDB
+docker build -t influxdb ./srcs/influxdb
+kubectl apply -f ./srcs/influxdb/
 
+#TELEGRAF
+docker build -t telegraf ./srcs/telegraf
+kubectl apply -f ./srcs/telegraf/
+
+#GRAFANA
+docker build -t grafana ./srcs/grafana
+kubectl apply -f ./srcs/grafana/

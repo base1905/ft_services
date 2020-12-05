@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: wordpress-volume
+  name: influxdb-data
   labels:
     type: local
 spec:
@@ -11,14 +11,17 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: "/mnt/data/wordpress"
+    path: "/mnt/influx"
+    type: DirectoryOrCreate
+  claimRef:
+    name: influxdb-data-disk
+    namespace: default
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: wordpress-pv-claim
+  name: influxdb-data-disk
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

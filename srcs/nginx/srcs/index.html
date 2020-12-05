@@ -8,29 +8,43 @@
         margin: 0 auto;
         font-family: Tahoma, Verdana, Arial, sans-serif;
     }
+    table, th, td {
+    border: 0px solid black;
+	border-collapse: collapse;
+}
 </style>
 </head>
 <body>
-<h1>Welcome Arannara's services!</h1>
+<h1>Welcome to Arannara's services!</h1>
 <p>If you see this page, the nginx web server is successfully installed and
 working. Further configuration is required.</p>
 
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
-
 <p><em>Thank you for using nginx.</em></p>
 
-<p>Arannara's Services
-<a href="https://192.168.99.222/">https://192.168.99.222/</a>.<br/>
-ssh arannara@192.168.99.222 qwerty<br/>
-ssh root@192.168.99.222 qwerty<br/></p>
+<p><b>ssh</b><br/>
+ssh arannara@192.168.99.222 <em>qwerty</em><br/>
+ssh root@192.168.99.222 <em>qwerty</em><br/></p>
 <p></p>
-<p>phpmyadmin arannara qwerty<br/>
-<a href="http://192.168.99.222:5000">http://192.168.99.222:5000</a>.</p>
+<p><b>phpmyadmin</b> <em>arannara qwerty</em><br/>
+<a href="http://192.168.99.222:5000">http://192.168.99.222:5000</a></p>
 <p></p>
-<p>wordpress arannara qwerty<br/>
-<a href="http://192.168.99.222:5050">http://192.168.99.222:5050</a>.</p>
+   <table>
+    <tr>
+        <td><b>wordpress</b></td>
+        <td><em>admin qwerty</em></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><em>User One qwerty</em></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><em>user_two qwerty</em></td>
+   </tr>
+  </table>
+<a href="http://192.168.99.222:5050">http://192.168.99.222:5050</a></p>
+<p></p>
+<p><b>grafana</b> <em>arannara qwerty</em><br/>
+<a href="http://192.168.99.222:3000">http://192.168.99.222:3000</a></p>
 </body>
 </html>

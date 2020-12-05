@@ -15,9 +15,6 @@ COPY	./srcs/supervisord.conf /etc/supervisord.conf
 RUN		cp -r /usr/share/webapps/phpmyadmin/* /var/www/localhost/htdocs
 RUN 	chown -R nginx:nginx /var/www/localhost/htdocs
 
-COPY	./srcs/start.sh .
-RUN		chmod 711 start.sh
-
 EXPOSE	5000
 
-CMD		[ "sh", "start.sh" ]
+ENTRYPOINT /usr/bin/supervisord -c /etc/supervisord.conf
