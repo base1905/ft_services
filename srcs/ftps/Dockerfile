@@ -1,10 +1,8 @@
-FROM	alpine:latest
+FROM	alpine
 
-RUN 	apk update && \
-        apk add openrc 
+RUN 	apk update && apk upgrade
 
-RUN	apk add vsftpd && \
-        apk add openssl
+RUN	apk add openrc vsftpd openssl
 
 RUN     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -subj '/C=RU/ST=Moscow/L=Moscow/O=42/OU=21/CN=arannara' \
@@ -17,10 +15,10 @@ RUN     mkdir -p /var/ftp
 
 COPY    /srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-RUN     chmod 757 -R /var/lib/ftp
+COPY    /srcs/start.sh .
 
-VOLUME  /var/lib/ftp
+RUN     chmod 711 start.sh
 
 EXPOSE  21 20021
 
-ENTRYPOINT vsftpd /etc/vsftpd/vsftpd.conf
+CMD     [ "sh", "start.sh" ]
