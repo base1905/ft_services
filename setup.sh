@@ -2,43 +2,67 @@ minikube start --vm-driver=virtualbox
 
 minikube dashboard &
 
+minikube addons enable metallb
+minikube addons enable metrics-server
+kubectl apply -f ./srcs/configmap.yaml
+
+kubectl create secret generic -n metallb-system memberlist \
+    --from-literal=secretkey="$(openssl rand -base64 128)"
+
+export MINIKUBE_IP=$(minikube ip)
+
 eval $(minikube docker-env)
 
-minikube addons enable metallb
-kubectl apply -f ./srcs/nginx/metallb.yaml
+printf "\nNGINX..."
+docker build -t nginx ./srcs/nginx > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-deploy/nginx-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/nginx-service.yaml
 
-#NGINX
-docker build -t nginx ./srcs/nginx/
-kubectl apply -f ./srcs/nginx/
+printf "\nMYSQL..."
+docker build -t mysql ./srcs/mysql > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-volume/mysql-volume.yaml
+kubectl apply -f ./srcs/yaml-deploy/mysql-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/mysql-service.yaml
 
-#MYSQL
-docker build -t mysql ./srcs/mysql/
-kubectl apply -f ./srcs/mysql/
+printf "\nFTPS..."
+docker build -t ftps ./srcs/ftps > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-volume/ftps-volume.yaml
+kubectl apply -f ./srcs/yaml-deploy/ftps-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/ftps-service.yaml
 
-#FTPS
-docker build -t ftps ./srcs/ftps/
-kubectl apply -f ./srcs/ftps/
+printf "\nPHPMYADMIN..."
+docker build -t phpmyadmin ./srcs/phpmyadmin > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-deploy/phpmyadmin-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/phpmyadmin-service.yaml
 
-#PHPMYADMIN
-docker build -t phpmyadmin ./srcs/phpmyadmin/
-kubectl apply -f ./srcs/phpmyadmin/
+printf "\nWORDPRESS..."
+docker build -t wordpress ./srcs/wordpress > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-deploy/wordpress-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/wordpress-service.yaml
 
-#WORDPRESS
-docker build -t wordpress ./srcs/wordpress/
-kubectl apply -f ./srcs/wordpress/
+printf "\nINFLUXDB..."
+docker build -t influxdb ./srcs/influxdb > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-volume/influxdb-volume.yaml
+kubectl apply -f ./srcs/yaml-deploy/influxdb-deploy.yaml
+kubectl apply -f ./srcs/influxdb-configmap.yaml
+kubectl apply -f ./srcs/yaml-service/influxdb-service.yaml
 
-#INFLUXDB
-docker build -t influxdb ./srcs/influxdb
-kubectl apply -f ./srcs/influxdb/
-
-#TELEGRAF
+printf "\nTELEGRAF..."
 docker build -t telegraf ./srcs/telegraf
-kubectl apply -f ./srcs/telegraf/
+echo "Ok"
+kubectl apply -f ./srcs/yaml-daemon/
 
-#GRAFANA
-docker build -t grafana ./srcs/grafana
-kubectl apply -f ./srcs/grafana/
-
+printf "\nGRAFANA..."
+docker build -t grafana ./srcs/grafana > /dev/null
+echo "Ok"
+kubectl apply -f ./srcs/yaml-deploy/grafana-deploy.yaml
+kubectl apply -f ./srcs/yaml-service/grafana-service.yaml
 
 # kubectl exec deploy/ftps -- pkill vsftpd
 # kubectl exec deploy/grafana -- pkill grafana

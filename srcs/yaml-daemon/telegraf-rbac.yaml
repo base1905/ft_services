@@ -1,0 +1,18 @@
+# Bind service account to the cluster role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: metrics:reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metrics
+subjects:
+  - kind: ServiceAccount
+    name: telegraf
+    namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: telegraf-service-account

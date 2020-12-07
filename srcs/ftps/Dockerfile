@@ -21,4 +21,4 @@ RUN     chmod 711 start.sh
 
 EXPOSE  21 20021
 
-CMD     [ "sh", "start.sh" ]
+ENTRYPOINT sh start.sh
