@@ -4,6 +4,7 @@ minikube dashboard &
 
 minikube addons enable metallb
 minikube addons enable metrics-server
+
 kubectl apply -f ./srcs/configmap.yaml
 
 kubectl create secret generic -n metallb-system memberlist \
@@ -50,11 +51,10 @@ docker build -t influxdb ./srcs/influxdb > /dev/null
 echo "Ok"
 kubectl apply -f ./srcs/yaml-volume/influxdb-volume.yaml
 kubectl apply -f ./srcs/yaml-deploy/influxdb-deploy.yaml
-kubectl apply -f ./srcs/influxdb-configmap.yaml
 kubectl apply -f ./srcs/yaml-service/influxdb-service.yaml
 
 printf "\nTELEGRAF..."
-docker build -t telegraf ./srcs/telegraf
+docker build --build-arg MINIKUBE_IP=${MINIKUBE_IP} -t telegraf ./srcs/telegraf > /dev/null
 echo "Ok"
 kubectl apply -f ./srcs/yaml-daemon/
 

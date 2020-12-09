@@ -17,9 +17,9 @@ spec:
         imagePullPolicy: Never
         resources:
           limits:
-            memory: "384Mi"
+            memory: 384Mi
           requests:
-            memory: "128Mi"
+            memory: 128Mi
         ports:
           - containerPort: 3306
             name: mysql

@@ -6,6 +6,8 @@ spec:
   selector:
     matchLabels:
       app: influxdb
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -13,27 +15,20 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb
+        image: influxdb:latest
         imagePullPolicy: Never
         resources:
           limits:
-            memory: "384Mi"
+            memory: 384Mi
           requests:
-            memory: "128Mi"
+            memory: 128Mi
         ports:
           - containerPort: 8086
             name: influxdb
         volumeMounts:
-          - mountPath: "/var/lib/influxdb"
-            name: influxdb-data
-          - name: influxdb
-            mountPath: /etc/influxdb/influxdb.conf
-            subPath: influxdb.conf
-            readOnly: true
+          - mountPath: /var/lib/influxdb
+            name: influxdb-storage
       volumes:
-      - name: influxdb-data
+      - name: influxdb-storage
         persistentVolumeClaim:
-          claimName: influxdb-data-disk
-      - name: influxdb
-        configMap:
-          name: influxdb
+          claimName: influxdb-pv-claim
