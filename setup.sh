@@ -66,8 +66,8 @@ kubectl apply -f ./srcs/yaml-service/grafana-service.yaml
 
 # kubectl exec deploy/ftps -- pkill vsftpd
 # kubectl exec deploy/grafana -- pkill grafana
-# kubectl exec deploy/telegraf -- pkill telegraf
-# kubectl exec deploy/influxdb -- pkill influx
+# kubectl exec deploy/phpmyadmin -- pkill nginx
+# kubectl exec daemonset/telegraf -- pkill telegraf
 # kubectl exec deploy/wordpress -- pkill nginx
 # kubectl exec deploy/wordpress -- pkill php-fpm7
 # kubectl exec deploy/phpmyadmin -- pkill nginx
