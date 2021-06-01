@@ -5,6 +5,11 @@ minikube dashboard &
 minikube addons enable metallb
 minikube addons enable metrics-server
 
+#minikube problems solving
+#brew reinstall minikube
+#docker pull metallb/speaker:v0.8.2
+#docker pull metallb/controller:v0.8.2
+
 kubectl apply -f ./srcs/configmap.yaml
 
 kubectl create secret generic -n metallb-system memberlist \
@@ -72,6 +77,6 @@ kubectl apply -f ./srcs/yaml-service/grafana-service.yaml
 # kubectl exec deploy/wordpress -- pkill php-fpm7
 # kubectl exec deploy/phpmyadmin -- pkill nginx
 # kubectl exec deploy/phpmyadmin -- pkill php-fpm7
-# kubectl exec deploy/mysql -- pkill /usr/bin/mysqld 
+# kubectl exec deploy/mysql -- pkill /usr/bin/mysqld
 # kubectl exec deploy/nginx -- pkill nginx
 # kubectl exec deploy/nginx -- pkill ssh
