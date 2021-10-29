@@ -1,4 +1,4 @@
-FROM    alpine:latest
+FROM    alpine:3.12
 
 RUN     apk update && apk upgrade
 RUN     apk add openrc nginx openssl openssh supervisor

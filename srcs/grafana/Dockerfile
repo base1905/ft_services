@@ -1,10 +1,12 @@
-FROM	alpine:latest
+FROM    alpine:3.12
 
 RUN     apk update && apk upgrade
 
-RUN     apk add grafana --repository=http://dl-3.alpinelinux.org/alpine/edge/testing/
-
 COPY    srcs/start.sh /
+
+COPY    srcs/grafana-7.3.6-r0.apk /
+
+RUN     apk add --allow-untrusted grafana-7.3.6-r0.apk
 
 COPY    srcs/grafana.ini /usr/share/grafana/conf/custom.ini
 COPY    srcs/datasources.yaml /usr/share/grafana/conf/provisioning/datasources/influxdb.yaml

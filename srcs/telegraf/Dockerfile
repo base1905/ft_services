@@ -1,10 +1,14 @@
-FROM	alpine:latest
+FROM    alpine:3.12
 
 ARG     MINIKUBE_IP
 
-RUN	apk update && apk upgrade
+RUN	    apk update && apk upgrade
 
-RUN     apk add telegraf --repository=http://dl-3.alpinelinux.org/alpine/edge/testing/
+COPY    telegraf-1.17.0-r0.apk musl-1.2.2-r1.apk /
+
+RUN     apk add --allow-untrusted telegraf-1.17.0-r0.apk musl-1.2.2-r1.apk
+
+# RUN 	apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing telegraf
 
 RUN     mkdir -p /etc/telegraf/
 

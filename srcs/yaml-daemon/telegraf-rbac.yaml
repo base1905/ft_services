@@ -14,5 +14,13 @@ subjects:
   namespace: default
 roleRef:
   kind: ClusterRole
-  apiGroup: rbac.authorization.k8s.io
   name: metrics
+subjects:
+  - kind: ServiceAccount
+    name: telegraf
+    namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: telegraf

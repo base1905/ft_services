@@ -19,6 +19,8 @@ export MINIKUBE_IP=$(minikube ip)
 
 eval $(minikube docker-env)
 
+export MINIKUBE_IP=$(minikube ip)
+
 printf "\nNGINX..."
 docker build -t nginx ./srcs/nginx > /dev/null
 echo "Ok"
@@ -58,13 +60,15 @@ kubectl apply -f ./srcs/yaml-volume/influxdb-volume.yaml
 kubectl apply -f ./srcs/yaml-deploy/influxdb-deploy.yaml
 kubectl apply -f ./srcs/yaml-service/influxdb-service.yaml
 
+export MINIKUBE_IP=$(minikube ip)
+
 printf "\nTELEGRAF..."
-docker build --build-arg MINIKUBE_IP=${MINIKUBE_IP} -t telegraf ./srcs/telegraf > /dev/null
+docker build --network host --build-arg MINIKUBE_IP=$MINIKUBE_IP -t telegraf ./srcs/telegraf
 echo "Ok"
 kubectl apply -f ./srcs/yaml-daemon/
 
 printf "\nGRAFANA..."
-docker build -t grafana ./srcs/grafana > /dev/null
+docker build -t grafana ./srcs/grafana
 echo "Ok"
 kubectl apply -f ./srcs/yaml-deploy/grafana-deploy.yaml
 kubectl apply -f ./srcs/yaml-service/grafana-service.yaml
