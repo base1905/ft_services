@@ -4,9 +4,9 @@ ARG     MINIKUBE_IP
 
 RUN	    apk update && apk upgrade
 
-COPY    telegraf-1.17.0-r0.apk musl-1.2.2-r1.apk /
+COPY    telegraf-1.14.3-r0.apk /
 
-RUN     apk add --allow-untrusted telegraf-1.17.0-r0.apk musl-1.2.2-r1.apk
+RUN     apk add --allow-untrusted telegraf-1.14.3-r0.apk
 
 # RUN 	apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing telegraf
 
